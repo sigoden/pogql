@@ -1,0 +1,36 @@
+{
+  "name": "@pogql/graphql",
+  "version": "0.1.0",
+  "description": "Graphql utils for pogql",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "pogql",
+    "postgres",
+    "graphql"
+  ],
+  "author": "Sigoden Huang <sigoden@gmail.com> (https://sigoden.com/)",
+  "homepage": "https://github.com/sigoden/pogql/tree/main/packages/graphql",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigoden/pogql.git",
+    "directory": "packages/graphql"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rimraf dist",
+    "prepublish": "npm run prepublishOnly",
+    "prepublishOnly": "npm run -s clean && npm run -s build"
+  },
+  "dependencies": {
+    "graphql": "^16.2.0",
+    "graphql-tag": "^2.12.5"
+  }
+}

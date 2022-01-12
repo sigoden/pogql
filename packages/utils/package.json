@@ -1,0 +1,40 @@
+{
+  "name": "@pogql/utils",
+  "version": "0.1.0",
+  "description": "Utils for pogsql",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "pogql",
+    "postgres",
+    "graphql"
+  ],
+  "author": "Sigoden Huang <sigoden@gmail.com> (https://sigoden.com/)",
+  "homepage": "https://github.com/sigoden/pogql/tree/main/packages/utils",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigoden/pogql.git",
+    "directory": "packages/utils"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rimraf dist",
+    "prepublish": "npm run prepublishOnly",
+    "prepublishOnly": "npm run -s clean && npm run -s build"
+  },
+  "dependencies": {
+    "@pogql/graphql": "^0.1",
+    "lodash": "^4.17.21",
+    "sequelize": "^6.13.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.178"
+  }
+}
