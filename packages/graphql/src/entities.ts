@@ -1,5 +1,5 @@
 import assert from "assert";
-import { getTypeByScalarName } from "./fieldTypes";
+import { getFieldType } from "./fieldTypes";
 import {
   assertListType,
   getDirectiveValues,
@@ -30,6 +30,8 @@ import {
   GraphQLRelationsType,
   IndexType,
 } from "./types";
+
+export { GraphQLSchema } from "graphql";
 
 export function getAllJsonObjects(
   _schema: GraphQLSchema | string
@@ -104,7 +106,7 @@ export function getAllEntitiesRelations(
         field.astNode
       );
       //If is a basic scalar type
-      const typeClass = getTypeByScalarName(typeString);
+      const typeClass = getFieldType(typeString);
       if (typeClass?.fieldScalar) {
         newModel.fields.push(packEntityField(typeString, field, false));
       }

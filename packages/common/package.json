@@ -1,7 +1,7 @@
 {
-  "name": "@pogql/utils",
+  "name": "@pogql/common",
   "version": "0.1.0",
-  "description": "Utils for pogsql",
+  "description": "Common utils for pogql",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -16,11 +16,11 @@
     "graphql"
   ],
   "author": "Sigoden Huang <sigoden@gmail.com> (https://sigoden.com/)",
-  "homepage": "https://github.com/sigoden/pogql/tree/main/packages/utils",
+  "homepage": "https://github.com/sigoden/pogql/tree/main/packages/common",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sigoden/pogql.git",
-    "directory": "packages/utils"
+    "directory": "packages/common"
   },
   "license": "MIT",
   "scripts": {

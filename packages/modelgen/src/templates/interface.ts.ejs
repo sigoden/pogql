@@ -1,0 +1,9 @@
+// Auto-generated , DO NOT EDIT
+<%_ props.jsonInterfaces.forEach(function(interface){ _%>
+export interface <%= helper.upperFirst(interface.interfaceName) %> {
+<%_ interface.fields.forEach(function(field){ _%>
+    <%= field.name %><%= field.required ? "" : "?" %>: <%= field.type %><%= field.isArray ? "[]" : "" %>;
+<%_ }); _%>
+}
+
+<%_ }); _%>

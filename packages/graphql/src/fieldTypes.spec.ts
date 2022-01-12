@@ -1,13 +1,8 @@
-import { getTypeByScalarName } from "./fieldTypes";
+import { getFieldType } from "./fieldTypes";
 
 describe("general types", () => {
   it("can get json type", () => {
-    const typeClass = getTypeByScalarName("Json");
+    const typeClass = getFieldType("Json");
     expect(typeClass.name).toBe("Json");
-  });
-
-  it("get sequelize date type", () => {
-    const typeClass = getTypeByScalarName("Date");
-    expect(typeClass.sequelizeType).toBe("timestamp");
   });
 });

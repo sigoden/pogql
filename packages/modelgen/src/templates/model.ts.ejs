@@ -1,0 +1,66 @@
+// Auto-generated , DO NOT EDIT
+/* eslint-disable */
+
+import { Sequelize, Model, DataTypes, Optional } from "sequelize";
+<%_ if (props.importJsonInterfaces.length !== 0) { _%>
+import {<% props.importJsonInterfaces.forEach(function(interface){ %>
+  <%= interface %>,
+<% }); %>} from '../interfaces'
+<%_ } _%>
+
+<%_ if (props.importEnums.length !== 0) { _%>
+import {<% props.importEnums.forEach(function(e){ %>
+  <%= e %>,
+<% }); %>} from '../enums'
+<%_ } _%>
+
+export interface <%= props.className %>Attributes {
+<%_ props.fields.forEach(function(field){ _%>
+  <%= field.name %><%= field.required ? "" : "?" %>: <%= field.type %><%= field.isArray ? "[]" : "" %>;
+<%_ }); _%>
+}
+
+export interface <%= props.className %>CreateAttributes extends Optional<<%= props.className %>Attributes, "<%= props.id %>"> {}
+
+export class <%= props.className %> extends Model<
+  <%= props.className %>Attributes,
+  <%= props.className %>CreateAttributes
+> {
+<%_ props.fields.forEach(function(field){ _%>
+  public <%= field.name %><%= field.required ? "!" : "" %>: <%= field.type %><%= field.isArray ? "[]" : "" %>;
+<%_ }); _%>
+
+  public static bootstrap(sequelize: Sequelize) {
+    <%= props.className %>.init(
+      {
+      <%_ props.fields.forEach(function(field) { _%>
+        <%= field.name %>: {
+          type: <%- field.sequelize.type %>,
+          primaryKey: <%= field.sequelize.primaryKey %>,
+          allowNull: <%= field.sequelize.allowNull %>,
+          <%_ if(field.sequelize.comment) { _%> comment: `<%= field.sequelize.comment %>` <%} _%>
+          <%_ if(field.sequelize.get) { _%> get() { <%= field.sequelize.get %> } <%} _%>
+          <%_ if(field.sequelize.get) { _%> set() { <%= field.sequelize.set %> } <%}  _%>
+        },
+      <%_ }); _%>
+      },
+      {
+        sequelize,
+        underscored: <%= props.modelOptions.underscored %>,
+        <%_ if(props.modelOptions.comment) { _%> comment: `<%= props.modelOptions.comment %>` <%_ } _%>
+        freezeTableName: <%= props.modelOptions.freezeTableName %>,
+        createdAt: <%= props.modelOptions.createdAt %>,
+        updatedAt: <%= props.modelOptions.updatedAt %>,
+        indexs: [
+          <%_ props.modelOptions.indexes.forEach(function(index){ _%>
+          {
+            unique: <%= index.unique %>,
+            using: `<%= index.using %>`,
+            fields: <%- index.fields %>,
+          },
+          <%_ }); _%>
+        ],
+      }
+    )
+  }
+}

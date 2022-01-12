@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Generate sequelize models from schema.graphql",
   "main": "dist/index.js",
+  "bin": "dist/main.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -29,5 +30,14 @@
     "prepublishOnly": "npm run -s clean && npm run -s build"
   },
   "dependencies": {
+    "@pogql/graphql": "^0.1",
+    "ejs": "^3.1.6",
+    "inflection": "^1.13.1",
+    "lodash": "^4.17.21",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.0",
+    "@types/lodash": "^4.14.178"
   }
 }
