@@ -2,17 +2,22 @@
 /* eslint-disable */
 
 import { Sequelize, Model, DataTypes, Optional } from "sequelize";
-<%_ if (props.importJsonInterfaces.length !== 0) { _%>
-import {<% props.importJsonInterfaces.forEach(function(interface){ %>
-  <%= interface %>,
-<% }); %>} from '../interfaces'
-<%_ } _%>
 
-<%_ if (props.importEnums.length !== 0) { _%>
+<% if (props.importJsonInterfaces.length !== 0) { %>
+import {<% props.importJsonInterfaces.forEach(function(interface){ %>
+  <%= interface %>,<% }); %>
+} from '../interfaces';
+<% } -%>
+<% if (props.importEnums.length !== 0) { %>
 import {<% props.importEnums.forEach(function(e){ %>
-  <%= e %>,
-<% }); %>} from '../enums'
-<%_ } _%>
+  <%= e %>,<% }); %>
+} from '../enums'
+<% } -%>
+<% if (props.importModels.length !== 0) { %>
+import {<% props.importModels.forEach(function(r){ %>
+  <%= r %>,<% }); %>
+} from './';
+<% } -%>
 
 export interface <%= props.className %>Attributes {
 <%_ props.fields.forEach(function(field){ _%>
@@ -25,10 +30,14 @@ export interface <%= props.className %>CreateAttributes extends Optional<<%= pro
 export class <%= props.className %> extends Model<
   <%= props.className %>Attributes,
   <%= props.className %>CreateAttributes
-> {
+> implements <%= props.className %>Attributes {
+
 <%_ props.fields.forEach(function(field){ _%>
-  public <%= field.name %><%= field.required ? "!" : "" %>: <%= field.type %><%= field.isArray ? "[]" : "" %>;
+  declare <%= field.name %>: <%= field.type %><%= field.isArray ? "[]" : "" %>;
 <%_ }); _%>
+
+  <% if(props.modelOptions.createdAt) { _%>declare readonly createdAt: Date;<% } %>
+  <% if(props.modelOptions.updatedAt) { _%>declare readonly updatedAt: Date;<% } %>
 
   public static bootstrap(sequelize: Sequelize) {
     <%= props.className %>.init(
@@ -51,7 +60,7 @@ export class <%= props.className %> extends Model<
         freezeTableName: <%= props.modelOptions.freezeTableName %>,
         createdAt: <%= props.modelOptions.createdAt %>,
         updatedAt: <%= props.modelOptions.updatedAt %>,
-        indexs: [
+        indexes: [
           <%_ props.modelOptions.indexes.forEach(function(index){ _%>
           {
             unique: <%= index.unique %>,
@@ -61,6 +70,11 @@ export class <%= props.className %> extends Model<
           <%_ }); _%>
         ],
       }
-    )
+    );
+    <%_ if (props.relations.length !== 0) { _%>
+    <%_ props.relations.forEach(function(r){ _%>
+    <%= props.className %>.<%= r.type %>(<%= r.to %>, { foreignKey: `<%= r.foreignKey %>`<%_ if (r.fieldName) { _%>, as: `<%= r.fieldName %>`<% } %> });
+    <%_ }); _%>
+    <%_ } _%>
   }
 }
